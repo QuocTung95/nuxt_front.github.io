@@ -27,6 +27,7 @@
 </template>
 
 <script>
+const host = require('../host/hostserver.js')
   export default {
 
         data() {
@@ -59,7 +60,7 @@
     methods: {
     async  register(){
       try {
-        const response = await this.$axios.$post("http://localhost:8080/register", {
+        const response = await this.$axios.$post(`${host}/register`, {
             name:'tung',
             age:'',
             email:this.email,
@@ -67,7 +68,7 @@
             password: this.password
         })
         if(response.status){
-            const cart = await this.$axios.$post("http://localhost:8080/addcart", {
+            const cart = await this.$axios.$post(`${host}/addcart`, {
             user_id : response.result.id,
             product_id : [0]
         })
@@ -85,7 +86,7 @@
     },
     async  login(){
     try {
-        const user = await this.$axios.$post("http://localhost:8080/login",{
+        const user = await this.$axios.$post(`${host}/login`,{
             email : this.email,
             password: this.password
         })
@@ -122,7 +123,7 @@
     },
     async  logout(){
     try {
-        await this.$axios.$get("http://localhost:8080/logout")
+        await this.$axios.$get(`${host}/logout`)
             this.$message({
             type: 'success',
             message: 'logout Success'

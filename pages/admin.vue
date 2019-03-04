@@ -98,7 +98,7 @@ export default {
                 image : document.getElementById('imgUpload').files[0].name,
                 hot_product : this.hot_product,
                 sale_off : document.getElementById('sale_off').value,
-                video : document.getElementById('video').value,
+                video : document.getElementById('description').value,
                 sub_image: '{' + kq.slice(0, -16) + '}' //// Vì upload image sẽ có thêm 2 trường phụ
                 // sub_image : Object.assign({}, sub_imageName.slice(0, -2)) // Vì upload image sẽ có thêm 2 obj phụ
                 })

@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+const host = require('../host/hostserver.js')
 export default {
   computed : {
       hotProducts () {
@@ -75,7 +76,7 @@ export default {
         async addToCart(id, index){
       this.$store.dispatch('cart/addProductToCart', `${id}`)
       try {
-        const response = await this.$axios.$put(`http://localhost:8080/cart/${this.user_id}`, {
+        const response = await this.$axios.$put(`${host}/cart/${this.user_id}`, {
           product_id : this.id_productInCart.map(i => Number(i))
         })
         if(response){
@@ -90,7 +91,7 @@ export default {
     },
     async deleteHotProduct(id, index) {
       try {
-        const response = await this.$axios.$delete(`http://localhost:8080/product/delete/${id}`)
+        const response = await this.$axios.$delete(`${host}/product/delete/${id}`)
         this.$store.dispatch('deleteHotProduct', index)
 
             this.$message({
