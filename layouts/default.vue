@@ -78,13 +78,13 @@ export default {
         var user_id =   this.$cookie.get('user_id')
         this.$store.dispatch('user_id', user_id)
 
-        let  data  = await this.$axios.$get(`http://localhost:8080/cart/${this.user_id}`)
+        let  data  = await this.$axios.$get(`https://tkshop-server.herokuapp.com/cart/${this.user_id}`)
         this.$store.dispatch('cart/id_productInCart', data.result.product_id )
         // store.commit('cart', data.response)
         let total_id = data.result.product_id
         let allProductInCart = []
         for(let id of total_id){
-          const product = await this.$axios.$get(`http://localhost:8080/products/${id}`)
+          const product = await this.$axios.$get(`https://tkshop-server.herokuapp.com/products/${id}`)
           allProductInCart.push(product.response)
         }
         this.$store.dispatch('cart/allProductInCart', allProductInCart)
@@ -95,20 +95,20 @@ export default {
         this.isLogin = !this.isLogin
       },
       async getCart () {
-            let  data  = await this.$axios.$get(`http://localhost:8080/cart/${this.user_id}`)
+            let  data  = await this.$axios.$get(`https://tkshop-server.herokuapp.com/cart/${this.user_id}`)
             this.$store.dispatch('cart/id_productInCart', data.result.product_id )
             // store.commit('cart', data.response)
             let total_id = data.result.product_id
             let allProductInCart = []
             for(let id of total_id){
-              const product = await this.$axios.$get(`http://localhost:8080/products/${id}`)
+              const product = await this.$axios.$get(`https://tkshop-server.herokuapp.com/products/${id}`)
               allProductInCart.push(product.response)
             }
             this.$store.dispatch('cart/allProductInCart', allProductInCart)
       },
       async  logout(){
           try {
-              await this.$axios.$get("http://localhost:8080/logout")
+              await this.$axios.$get("https://tkshop-server.herokuapp.com/logout")
                   this.$message({
                   type: 'success',
                   message: 'logout Success'
