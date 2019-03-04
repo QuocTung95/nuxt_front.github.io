@@ -1,0 +1,40 @@
+{
+  "name": "Shop-shose",
+  "version": "1.0.0",
+  "description": "this is project",
+  "author": "Quoctung95",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "heroku-postbuild": "npm run build",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
+    "@fortawesome/vue-fontawesome": "^0.1.5",
+    "@nuxtjs/auth": "^4.5.3",
+    "@nuxtjs/axios": "^5.3.6",
+    "axios": "^0.18.0",
+    "element-ui": "^2.4.6",
+    "express": "^4.16.3",
+    "highlight.js": "^9.15.6",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "node-sass": "^4.11.0",
+    "nuxt": "^2.3.4",
+    "nuxt-fontawesome": "^0.4.0",
+    "remarkable": "^1.7.1",
+    "vue-cookie": "^1.1.4",
+    "vue-cookies": "^1.5.12",
+    "vue-scroll": "^2.1.9",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.11.0",
+    "sass-loader": "^7.1.0"
+  }
+}
