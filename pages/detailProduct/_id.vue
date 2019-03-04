@@ -101,7 +101,7 @@
 import axios from 'axios'
 export default {
     async fetch ({params ,  store }) {
-    let  {data}  = await axios.get(`https://tkshop-server.herokuapp.com/products/${params.id}`)
+    let  {data}  = await axios.get(`http://localhost:8080/products/${params.id}`)
     const product = data.response
     // console.log('product :', product.name);
     store.commit('detailProduct/product', data.response)

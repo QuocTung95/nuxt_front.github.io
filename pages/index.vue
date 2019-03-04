@@ -56,23 +56,23 @@ export default {
     footerEnd,
   },
     async fetch ({ store, params }) {
-    let { data } = await axios.get('https://tkshop-server.herokuapp.com/hotProduct')
+    let { data } = await axios.get('http://localhost:8080/hotProduct')
     console.log('hotproduct :', data.response);
     store.dispatch('hotProducts', data.response)
   },
 // async asyncData({$axios}) {
-//         const data = await $axios.$get('https://tkshop-server.herokuapp.com/users/13')
+//         const data = await $axios.$get('http://localhost:8080/users/13')
 //         let user = data.response
 //         return {user}
 //   },
   
   // async fetch ({ store, params }) {
-  //   let { data } = await axios.get('https://tkshop-server.herokuapp.com/users')
+  //   let { data } = await axios.get('http://localhost:8080/users')
   //   store.commit('setStars', data)
   // },
     //   async user2({ $axios }){
     //       try {
-    //     const response = await $axios.$get('https://tkshop-server.herokuapp.com/users/4')
+    //     const response = await $axios.$get('http://localhost:8080/users/4')
     //     var user2 = response.result
     //     return { user2 }
     // } catch (error) {
@@ -81,7 +81,7 @@ export default {
   //     async asyncData({ $axios }) {
 
   //   try {
-  //       const response = await $axios.$get('https://tkshop-server.herokuapp.com/users')
+  //       const response = await $axios.$get('http://localhost:8080/users')
   //       var tung = response.result
   //       return { tung }
   //   } catch (error) {
@@ -148,7 +148,7 @@ export default {
   methods: {
     async  deleteuser(id, index){
       try {
-        const response = await this.$axios.$delete(`https://tkshop-server.herokuapp.com/users/${id}`)
+        const response = await this.$axios.$delete(`http://localhost:8080/users/${id}`)
         this.$store.dispatch('deleteuser', index)
       } catch (error) {
         console.log('err :');

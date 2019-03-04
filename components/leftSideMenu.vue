@@ -52,7 +52,7 @@ export default {
 
     async sortMen() {
         try {
-          const data = await this.$axios.$get('https://tkshop-server.herokuapp.com/products_boy')
+          const data = await this.$axios.$get('http://localhost:8080/products_boy')
           this.$store.dispatch('products', data.response)
       } catch (error) {
         throw Error(error.message)
@@ -60,7 +60,7 @@ export default {
     },
     async sortGirl() {
         try {
-          const data = await this.$axios.$get('https://tkshop-server.herokuapp.com/products_girl')
+          const data = await this.$axios.$get('http://localhost:8080/products_girl')
           this.$store.dispatch('products', data.response)
       } catch (error) {
         throw Error(error.message)
@@ -68,7 +68,7 @@ export default {
     },
     async getProuctByBrand (id) {
       try {
-        const data = await this.$axios.$get(`https://tkshop-server.herokuapp.com/brands/${id}`)
+        const data = await this.$axios.$get(`http://localhost:8080/brands/${id}`)
         this.$store.dispatch('products', data.data.products)
 
       } catch (error) {

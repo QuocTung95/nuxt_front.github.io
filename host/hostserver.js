@@ -1,3 +1,4 @@
-module.exports = {
-    host : 'https://tkshop-server.herokuapp.com//'
-}
+
+const host = 'http://localhost:8080'
+
+module.exports = host;

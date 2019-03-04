@@ -59,7 +59,7 @@
     methods: {
     async  register(){
       try {
-        const response = await this.$axios.$post("https://tkshop-server.herokuapp.com/register", {
+        const response = await this.$axios.$post("http://localhost:8080/register", {
             name:'tung',
             age:'',
             email:this.email,
@@ -67,7 +67,7 @@
             password: this.password
         })
         if(response.status){
-            const cart = await this.$axios.$post("https://tkshop-server.herokuapp.com/addcart", {
+            const cart = await this.$axios.$post("http://localhost:8080/addcart", {
             user_id : response.result.id,
             product_id : [0]
         })
@@ -85,7 +85,7 @@
     },
     async  login(){
     try {
-        const user = await this.$axios.$post("https://tkshop-server.herokuapp.com/login",{
+        const user = await this.$axios.$post("http://localhost:8080/login",{
             email : this.email,
             password: this.password
         })
@@ -122,7 +122,7 @@
     },
     async  logout(){
     try {
-        await this.$axios.$get("https://tkshop-server.herokuapp.com/logout")
+        await this.$axios.$get("http://localhost:8080/logout")
             this.$message({
             type: 'success',
             message: 'logout Success'

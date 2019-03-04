@@ -38,6 +38,10 @@
         sale_off: <el-input id="sale_off" type="text"  autocomplete="off"></el-input>
     </el-form-item>
 
+        <el-form-item label="video" >
+        <el-input id="video" type="text"  autocomplete="off"></el-input>
+    </el-form-item>
+
     <el-form-item>
       Hình ảnh chính :  <el-input id="imgUpload" type="file" name="images"></el-input>
     </el-form-item>
@@ -59,6 +63,7 @@
 <script>
 
 import axios from 'axios'
+const host = require('../host/hostserver.js')
 export default {
     data() {
         return {
@@ -71,6 +76,7 @@ export default {
     methods: {
         async uploadProduct (){
             try {
+                console.log("ưtf")
                 let arrImage = document.getElementById('arrImage')
                 let sub_imageName = []
                 let kq = ''
@@ -82,7 +88,7 @@ export default {
                     kq += sub_imageName[j] + ","
                 }
                 // console.log('kq :', '{' + kq.slice(0, -16) + '}');
-                const product = await this.$axios.$post('https://tkshop-server.herokuapp.com/upload', {
+                const product = await this.$axios.$post(`${host}/upload`, {
                 name: document.getElementById('name').value,
                 type_id: this.type_id,
                 price : document.getElementById('price').value,
@@ -92,6 +98,7 @@ export default {
                 image : document.getElementById('imgUpload').files[0].name,
                 hot_product : this.hot_product,
                 sale_off : document.getElementById('sale_off').value,
+                video : document.getElementById('video').value,
                 sub_image: '{' + kq.slice(0, -16) + '}' //// Vì upload image sẽ có thêm 2 trường phụ
                 // sub_image : Object.assign({}, sub_imageName.slice(0, -2)) // Vì upload image sẽ có thêm 2 obj phụ
                 })
@@ -99,6 +106,12 @@ export default {
                     this.$message({
                     type: 'success',
                     message: 'Upload thành công'
+                });
+                }
+                else {
+                    this.$message({
+                    type: 'error',
+                    message: 'Upload thất bại'
                 });
                 }
             } catch (error) {
