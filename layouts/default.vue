@@ -31,7 +31,9 @@
 <script>
 import loginModel from "../components/login";
 import footerSide from "../components/footer";
-import leftSide from "../components/leftSideMenu"
+import leftSide from "../components/leftSideMenu";
+const host = require('../host/hostserver.js')
+
 // import Icon from "vue-awesome"
 // import Icon from 'vue-awesome/components/Icon.vue'
 export default {
@@ -78,13 +80,13 @@ export default {
         var user_id =   this.$cookie.get('user_id')
         this.$store.dispatch('user_id', user_id)
 
-        let  data  = await this.$axios.$get(`https://tkshop-server.herokuapp.com/cart/${this.user_id}`)
+        let  data  = await this.$axios.$get(`${host}/cart/${this.user_id}`)
         this.$store.dispatch('cart/id_productInCart', data.result.product_id )
         // store.commit('cart', data.response)
         let total_id = data.result.product_id
         let allProductInCart = []
         for(let id of total_id){
-          const product = await this.$axios.$get(`https://tkshop-server.herokuapp.com/products/${id}`)
+          const product = await this.$axios.$get(`${host}/products/${id}`)
           allProductInCart.push(product.response)
         }
         this.$store.dispatch('cart/allProductInCart', allProductInCart)
@@ -95,20 +97,20 @@ export default {
         this.isLogin = !this.isLogin
       },
       async getCart () {
-            let  data  = await this.$axios.$get(`https://tkshop-server.herokuapp.com/cart/${this.user_id}`)
+            let  data  = await this.$axios.$get(`${host}/cart/${this.user_id}`)
             this.$store.dispatch('cart/id_productInCart', data.result.product_id )
             // store.commit('cart', data.response)
             let total_id = data.result.product_id
             let allProductInCart = []
             for(let id of total_id){
-              const product = await this.$axios.$get(`https://tkshop-server.herokuapp.com/products/${id}`)
+              const product = await this.$axios.$get(`${host}/products/${id}`)
               allProductInCart.push(product.response)
             }
             this.$store.dispatch('cart/allProductInCart', allProductInCart)
       },
       async  logout(){
           try {
-              await this.$axios.$get("https://tkshop-server.herokuapp.com/logout")
+              await this.$axios.$get(`${host}/logout`)
                   this.$message({
                   type: 'success',
                   message: 'logout Success'

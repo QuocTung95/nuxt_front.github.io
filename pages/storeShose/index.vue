@@ -88,6 +88,7 @@
 import axios from 'axios'
 
 import leftSide from "../../components/leftSideMenu"
+const host = require('../../host/hostserver.js')
 
 
 
@@ -96,12 +97,12 @@ export default {
         leftSide
     },
     async asyncData  ({store}){
-      let  {data}  = await axios.get('https://tkshop-server.herokuapp.com/brands')
+      let  {data}  = await axios.get(`${host}/brands`)
       store.dispatch('brands', data.response)
     },
     
     async fetch ({ store }) {
-    let  {data}  = await axios.get('https://tkshop-server.herokuapp.com/products')
+    let  {data}  = await axios.get(`${host}/products`)
     store.dispatch('products', data.response)
   },
     computed: {
@@ -181,7 +182,7 @@ export default {
       },
     async deleteProduct(id, index) {
             try {
-        const response = await this.$axios.$delete(`https://tkshop-server.herokuapp.com/product/delete/${id}`)
+        const response = await this.$axios.$delete(`${host}/product/delete/${id}`)
         this.$store.dispatch('deleteProduct', index)
         this.$message({
             type: 'success',
@@ -194,7 +195,7 @@ export default {
     async addToCart(id, index){
       this.$store.dispatch('cart/addProductToCart', `${id}`)
       try {
-        const response = await this.$axios.$put(`https://tkshop-server.herokuapp.com/cart/${this.user_id}`, {
+        const response = await this.$axios.$put(`${host}/cart/${this.user_id}`, {
           product_id : this.id_productInCart.map(i => Number(i))
         })
         if(response){

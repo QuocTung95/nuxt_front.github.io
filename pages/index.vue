@@ -45,7 +45,8 @@ import axios from 'axios'
 import service from '../components/service'
 import event from '../components/event'
 import footerEnd from '../components/footer'
-import hotTrendProduct from '../components/hotTrend'
+import hotTrendProduct from '../components/hotTrend';
+const host = require('../host/hostserver.js')
 export default {
   components : {
     Logo : Logo,
@@ -56,23 +57,23 @@ export default {
     footerEnd,
   },
     async fetch ({ store, params }) {
-    let { data } = await axios.get('https://tkshop-server.herokuapp.com/hotProduct')
+    let { data } = await axios.get(`${host}/hotProduct`)
     console.log('hotproduct :', data.response);
     store.dispatch('hotProducts', data.response)
   },
 // async asyncData({$axios}) {
-//         const data = await $axios.$get('https://tkshop-server.herokuapp.com/users/13')
+//         const data = await $axios.$get(`${host}/users/13`)
 //         let user = data.response
 //         return {user}
 //   },
   
   // async fetch ({ store, params }) {
-  //   let { data } = await axios.get('https://tkshop-server.herokuapp.com/users')
+  //   let { data } = await axios.get(`${host}/users`)
   //   store.commit('setStars', data)
   // },
     //   async user2({ $axios }){
     //       try {
-    //     const response = await $axios.$get('https://tkshop-server.herokuapp.com/users/4')
+    //     const response = await $axios.$get(`${host}/users/4`)
     //     var user2 = response.result
     //     return { user2 }
     // } catch (error) {
@@ -81,7 +82,7 @@ export default {
   //     async asyncData({ $axios }) {
 
   //   try {
-  //       const response = await $axios.$get('https://tkshop-server.herokuapp.com/users')
+  //       const response = await $axios.$get(`${host}/users`)
   //       var tung = response.result
   //       return { tung }
   //   } catch (error) {
@@ -148,7 +149,7 @@ export default {
   methods: {
     async  deleteuser(id, index){
       try {
-        const response = await this.$axios.$delete(`https://tkshop-server.herokuapp.com/users/${id}`)
+        const response = await this.$axios.$delete(`${host}/users/${id}`)
         this.$store.dispatch('deleteuser', index)
       } catch (error) {
         console.log('err :');
