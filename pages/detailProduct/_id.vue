@@ -110,7 +110,7 @@ import host from "../../host/hostserver"
 import axios from 'axios'
 export default {
     async fetch ({params ,  store }) {
-    let  {data}  = await axios.get(`${host.name}/${params.id}`)
+    let  {data}  = await axios.get(`${host.name}/products/${params.id}`)
     const product = data.response
     
     store.commit('detailProduct/product', data.response)
