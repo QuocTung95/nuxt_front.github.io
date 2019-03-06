@@ -10,7 +10,7 @@
                 
                 <h3>Nike Air Max Dia</h3>
 
-                <button style="height: 45px;" class="main-button">Chi tiết <i style="transform: rotateY(180deg)!important;" class="el-icon-back"></i></button>
+               <nuxt-link to="../pages/detailProduct/26"><button style="height: 45px;" class="main-button">Chi tiết <i style="transform: rotateY(180deg)!important;" class="el-icon-back"></i></button></nuxt-link> 
                 </el-col>
                 <el-col :span="12" class="best-seller">
                 <img src="../static/images/bestSeller/D-Homepage-Best-Of-The-Best-ATSAT-Page-1-S19.jpg" alt="">
