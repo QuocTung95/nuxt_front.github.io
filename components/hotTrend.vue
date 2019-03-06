@@ -4,7 +4,10 @@
             
             <el-row>
                 <el-col :span="12" class="best-seller">
-                <img src="../static/images/bestSeller/3.4_HP_NSW_AM_Dia_DT.jpg" alt="">
+                  <nuxt-link to="../pages/detailProduct/26">
+                    <img src="../static/images/bestSeller/3.4_HP_NSW_AM_Dia_DT.jpg" alt="">
+                  </nuxt-link>
+                
                 <h3>Nike Air Max Dia</h3>
 
                 <button style="height: 45px;" class="main-button">Chi tiết <i style="transform: rotateY(180deg)!important;" class="el-icon-back"></i></button>
