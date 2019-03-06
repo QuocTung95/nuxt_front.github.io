@@ -20,7 +20,7 @@
 </template>
 <script>
 import axios from 'axios'
-const host = require('../host/hostserver.js')
+import host from "../host/hostserver"
 export default {
 
     data() {
@@ -53,7 +53,7 @@ export default {
 
     async sortMen() {
         try {
-          const data = await this.$axios.$get(`${host}/products_boy`)
+          const data = await this.$axios.$get(`${host.name}/products_boy`)
           this.$store.dispatch('products', data.response)
       } catch (error) {
         throw Error(error.message)
@@ -61,7 +61,7 @@ export default {
     },
     async sortGirl() {
         try {
-          const data = await this.$axios.$get(`${host}/products_girl`)
+          const data = await this.$axios.$get(`${host.name}/products_girl`)
           this.$store.dispatch('products', data.response)
       } catch (error) {
         throw Error(error.message)
@@ -69,7 +69,7 @@ export default {
     },
     async getProuctByBrand (id) {
       try {
-        const data = await this.$axios.$get(`${host}/brands/${id}`)
+        const data = await this.$axios.$get(`${host.name}/brands/${id}`)
         this.$store.dispatch('products', data.data.products)
 
       } catch (error) {

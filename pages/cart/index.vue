@@ -154,7 +154,7 @@
       }
     },
     mounted (){
-      console.log(this.allProductInCart == false);
+     
     },
 
       methods: {

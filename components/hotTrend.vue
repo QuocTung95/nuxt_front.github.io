@@ -4,14 +4,15 @@
             
             <el-row>
                 <el-col :span="12" class="best-seller">
-                <img src="../static/images/bestSeller/5aa33afdc94f198feb57aae79329fdd28163a126_banner-2.jpg" alt="">
-                <h3>WOMENS COLLECTION</h3>
-                <button class="btn-blue">Chi tiết</button>
+                <img src="../static/images/bestSeller/3.4_HP_NSW_AM_Dia_DT.jpg" alt="">
+                <h3>Nike Air Max Dia</h3>
+
+                <button style="height: 45px;" class="main-button">Chi tiết <i style="transform: rotateY(180deg)!important;" class="el-icon-back"></i></button>
                 </el-col>
                 <el-col :span="12" class="best-seller">
-                <img src="../static/images/bestSeller/c3690c904e6d2d26fbe198e23961c8ecd35e644c_banner-3.jpg" alt="">
+                <img src="../static/images/bestSeller/D-Homepage-Best-Of-The-Best-ATSAT-Page-1-S19.jpg" alt="">
                 <h3>WOMENS COLLECTION</h3>
-                <button class="btn-blue">Chi tiết</button>
+                <button style="height: 45px;" class="main-button">VÀO SHOP <i style="transform: rotateY(180deg)!important;" class="el-icon-back"></i></button>
                 </el-col>
             </el-row>
 
@@ -56,17 +57,20 @@ export default {
   .best-seller{
     padding: 5px;
     position: relative;
+    height: 370px;
   }
    .best-seller img{
      width: 100%;
+     height: 100%;
    }
-   .best-seller .btn-blue{
+   .best-seller button{
     position: absolute;
     top: 57%;
     left: 14%;
+    background-color: #071a7199
    }
-   .best-seller .btn-blue:hover{
-     background-color: #87b840;
+   .best-seller button:hover{
+     background-color: rgba(3, 15, 65, 0.7);
    }
    .best-seller h3{
     position: absolute;

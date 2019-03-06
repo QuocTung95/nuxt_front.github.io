@@ -15,10 +15,10 @@
             <el-form-item label="Password">
                 <el-input type="password" name="password" v-model="password" autocomplete="on"></el-input>
             </el-form-item>
-            <el-button v-if="isAccount" @click="login()" type="primary" >Đăng nhập</el-button>
+            <el-button v-if="isAccount" @click="login()" id="enterKey" type="primary" >Đăng nhập</el-button>
             <p v-if="isAccount" @click="changToRegister()" style="padding-left: 6%; cursor: pointer;">Bạn chưa có tài khoản?</p>
             <i @click="changeToLogin()" v-if="!isAccount"  class="el-icon-back " style="padding-left: 6%; cursor: pointer;"></i>
-            <el-button v-if="!isAccount" @click="register()" type="primary" >Đăng ký</el-button>
+            <el-button v-if="!isAccount" @click="register()"  id="enterKey" type="primary" >Đăng ký</el-button>
             <!-- <el-button @click="login()" type="primary" >Register</el-button> -->
         </el-form>
         </div>
@@ -27,16 +27,18 @@
 </template>
 
 <script>
-const host = require('../host/hostserver.js')
+import host from "../host/hostserver"
   export default {
 
+      props : ['isLogin'],
         data() {
+            
             
             return {
                 right: 'right',
                 password: '',
                 email: '',
-                isAccount : true
+                isAccount : true,
             }
         },
         watch: {
@@ -45,11 +47,14 @@ const host = require('../host/hostserver.js')
             },
             password (value){
                 console.log(value)              
+            },
+            isLogin(value) {
+                console.log('isLog in model', value)
             }
         },
         mounted (){
+         
              let user = JSON.parse(localStorage.getItem('user'));
-            
         },
         computed: {
             user_id () {
@@ -60,7 +65,8 @@ const host = require('../host/hostserver.js')
     methods: {
     async  register(){
       try {
-        const response = await this.$axios.$post(`${host}/register`, {
+          
+        const response = await this.$axios.$post(`${host.name}/register`, {
             name:'tung',
             age:'',
             email:this.email,
@@ -68,11 +74,19 @@ const host = require('../host/hostserver.js')
             password: this.password
         })
         if(response.status){
-            const cart = await this.$axios.$post(`${host}/addcart`, {
+            console.log('dit me')
+            this.isLogin = false
+            console.log(this.isLogin)
+            window.addEventListener('keydown', (e) => {
+            e.key = 'Escape' 
+            console.log('escape')
+            })
+            this.login()
+            const cart = await this.$axios.$post(`${host.name}/addcart`, {
             user_id : response.result.id,
             product_id : [0]
         })
-        this.login()
+
         
         } else {
             this.$message({
@@ -86,15 +100,16 @@ const host = require('../host/hostserver.js')
     },
     async  login(){
     try {
-        const user = await this.$axios.$post(`${host}/login`,{
+        const user = await this.$axios.$post(`${host.name}/login`,{
             email : this.email,
             password: this.password
         })
-        if(user.status === true){
+        if(user.status){
             this.$message({
             type: 'success',
             message: 'Success'
         });
+
             // this.$axios.setHeader('x-access-token', `${user.token}`)
             // Set token và user_id cho user vào store và cooki trong vòng 1 ngày
             // set
@@ -106,6 +121,7 @@ const host = require('../host/hostserver.js')
             // dispatch store
             this.$store.dispatch('token', token)
             this.$store.dispatch('user_id', user_id)
+
 
 
         }
@@ -123,7 +139,7 @@ const host = require('../host/hostserver.js')
     },
     async  logout(){
     try {
-        await this.$axios.$get(`${host}/logout`)
+        await this.$axios.$get(`${host.name}/logout`)
             this.$message({
             type: 'success',
             message: 'logout Success'
@@ -163,6 +179,9 @@ const host = require('../host/hostserver.js')
     background-color: #456c82ad;
     height: 206px;
     display: none;
+}
+#form-register .show-form-register {
+    display: none!important;
 }
 .el-button--primary{
     position: absolute;

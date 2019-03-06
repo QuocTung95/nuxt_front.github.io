@@ -32,8 +32,8 @@
                   <div style="padding: 14px;">
                     <div>{{i.name}}</div>
                     <!-- <div>{{i.description.slice(0,50)}}...</div> -->
-                      <div class="price">{{i.price}}VNĐ 
-                        <span v-if="i.old_price">{{i.old_price}} VNĐ</span> 
+                      <div class="price">{{i.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}VNĐ 
+                        <span v-if="i.old_price">{{i.old_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}} VNĐ</span> 
                       </div>
                       <!-- <div>{{i.gender}}</div> -->
                       
@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-const host = require('../host/hostserver.js')
+import host from "../host/hostserver"
 export default {
   computed : {
       hotProducts () {
@@ -76,7 +76,7 @@ export default {
         async addToCart(id, index){
       this.$store.dispatch('cart/addProductToCart', `${id}`)
       try {
-        const response = await this.$axios.$put(`${host}/cart/${this.user_id}`, {
+        const response = await this.$axios.$put(`${host.name}/cart/${this.user_id}`, {
           product_id : this.id_productInCart.map(i => Number(i))
         })
         if(response){
@@ -91,7 +91,7 @@ export default {
     },
     async deleteHotProduct(id, index) {
       try {
-        const response = await this.$axios.$delete(`${host}/product/delete/${id}`)
+        const response = await this.$axios.$delete(`${host.name}/product/delete/${id}`)
         this.$store.dispatch('deleteHotProduct', index)
 
             this.$message({

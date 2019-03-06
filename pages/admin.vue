@@ -38,10 +38,6 @@
         sale_off: <el-input id="sale_off" type="text"  autocomplete="off"></el-input>
     </el-form-item>
 
-        <el-form-item label="video" >
-        <el-input id="video" type="text"  autocomplete="off"></el-input>
-    </el-form-item>
-
     <el-form-item>
       Hình ảnh chính :  <el-input id="imgUpload" type="file" name="images"></el-input>
     </el-form-item>
@@ -61,9 +57,8 @@
 </template>
 
 <script>
-
+import host from "../host/hostserver"
 import axios from 'axios'
-const host = require('../host/hostserver.js')
 export default {
     data() {
         return {
@@ -76,7 +71,6 @@ export default {
     methods: {
         async uploadProduct (){
             try {
-                console.log("ưtf")
                 let arrImage = document.getElementById('arrImage')
                 let sub_imageName = []
                 let kq = ''
@@ -87,8 +81,8 @@ export default {
                 for(let j in sub_imageName) {
                     kq += sub_imageName[j] + ","
                 }
-                // console.log('kq :', '{' + kq.slice(0, -16) + '}');
-                const product = await this.$axios.$post(`${host}/upload`, {
+               
+                const product = await this.$axios.$post(`${host.name}/upload`, {
                 name: document.getElementById('name').value,
                 type_id: this.type_id,
                 price : document.getElementById('price').value,
@@ -108,21 +102,15 @@ export default {
                     message: 'Upload thành công'
                 });
                 }
-                else {
-                    this.$message({
-                    type: 'error',
-                    message: 'Upload thất bại'
-                });
-                }
             } catch (error) {
                 throw Error(error.message)
             }
         },
     handleRemove(file, fileList) {
-        console.log(file, fileList);
+       
       },
       handlePreview(file) {
-        console.log(file.name);
+     
         return file
       },
       handleExceed(files, fileList) {

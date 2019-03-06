@@ -15,6 +15,15 @@
     <el-row class="wrap-detail-product">
         <!-- Cột 1 -->
             <el-col :span="16" class="wrap-product">
+                <div class="card-product">
+                    <el-card v-if="product.video" shadow="hover" :body-style="{ padding: '5px' }">
+                        <video autoplay loop height= "300px">
+                        <source :src="`${product.video}`" type="video/mp4">
+                        </video>
+                    </el-card>
+                </div>
+
+
                 <div v-for="(i , index) in sub_image" :key="index" class="card-product">
                     <el-card :body-style="{ padding: '5px' }" shadow="hover">
                         <img class="img-product" :src="`/images/detailProduct/${product.image}/${i}`" alt="">
@@ -97,14 +106,13 @@
 </template>
 
 <script>
-
-import axios from 'axios';
-const host = require('../../host/hostserver.js');
+import host from "../../host/hostserver"
+import axios from 'axios'
 export default {
     async fetch ({params ,  store }) {
-    let  {data}  = await axios.get(`${host}/products/${params.id}`)
+    let  {data}  = await axios.get(`${host.name}/${params.id}`)
     const product = data.response
-    // console.log('product :', product.name);
+    
     store.commit('detailProduct/product', data.response)
   },
   computed : {
@@ -112,11 +120,14 @@ export default {
           return this.$store.state.detailProduct.product
       },
       sub_image(){
-          return this.product.sub_image
+          let str_sub_image = this.product.sub_image
+          let sub_image_arr = str_sub_image.slice(1 , str_sub_image.length -1).split(',')
+          this.$store.dispatch('detailProduct/sub_image', sub_image_arr) 
+          return this.$store.state.detailProduct.sub_image
       }
   },
   mounted() {
-    //   console.log('this.sub_image :', this.sub_image);
+    
   },
   data() {
       return {
@@ -291,6 +302,18 @@ export default {
         line-height: 1.75;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+div#video-product {
+    width: 100%;
+    height: 300px;
+}
 
+.card-product video {
+    width: 100%;
+    height: 100%;
+}
+.el-card__body {
+    padding: 20px;
+    height: 100%;
+}
 
 </style>

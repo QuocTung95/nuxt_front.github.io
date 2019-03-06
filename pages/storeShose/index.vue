@@ -13,24 +13,22 @@
 
           <!-- sorting product by price -->
           <div class="flex-end" id="sortPrice">
-            
-            <el-select v-model="value" placeholder="Select" v-bind:class="{ hiddenSort: ishidden}">
-              <div @click="sortMaxToMinProducts()">
-                <el-option 
-                label="Giá giảm dần"
-                value="1">
-              </el-option>
-              </div>
+            <div class="center-on-page">
 
 
-              <div @click="sortMinToMaxProducts()">
-                <el-option  
-                  label="Giá tăng dần"
-                  value="2">
-                </el-option>
-              </div>
+              
+              <div  class="select">
+                <select name="slct" id="slct" @change="sortProducts($event)">
+                  <option   v-for ="(direction , index ) in directions" :key="index"
+                  
+                  :label = "direction.name"
+                  :value="direction.value">
+                  </option>
+                </select>
+              </div> 
+              
+             </div>
 
-            </el-select>
           </div>
           <!-- frame product -->
           <div id="wrap-product-card" class="clearfix">
@@ -40,7 +38,7 @@
             <div v-for="(i, index) in products" :key="index" class="product-card" >
             <el-card :body-style="{ padding: '5px' }" shadow="hover">
               <!-- Phần sale % -->
-                <div v-if="i.sale_off" class="sale-off">{{i.sale_off}}</div>
+                <div v-if="i.sale_off" class="sale-off"><p class="sale-off-text">{{i.sale_off}}</p></div>
             <!-- phần ảnh -->
               <div class="image-product">
                 <nuxt-link :to="'./detailProduct/' + i.id">
@@ -64,8 +62,8 @@
                   <div style="padding: 14px;">
                     <div>{{i.name}}</div>
                     <!-- <div>{{i.description.slice(0,50)}}...</div> -->
-                      <div class="price">{{i.price}}VNĐ 
-                        <span v-if="i.old_price">{{i.old_price}} VNĐ</span> 
+                      <div class="price">{{i.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}VNĐ 
+                        <span v-if="i.old_price">{{i.old_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}} VNĐ</span> 
                       </div>
                       <!-- <div>{{i.gender}}</div> -->
                       
@@ -85,10 +83,10 @@
 
 </template>
 <script>
+import host from "../../host/hostserver"
 import axios from 'axios'
 
 import leftSide from "../../components/leftSideMenu"
-const host = require('../../host/hostserver.js')
 
 
 
@@ -97,12 +95,12 @@ export default {
         leftSide
     },
     async asyncData  ({store}){
-      let  {data}  = await axios.get(`${host}/brands`)
+      let  {data}  = await axios.get(`${host.name}/brands`)
       store.dispatch('brands', data.response)
     },
     
     async fetch ({ store }) {
-    let  {data}  = await axios.get(`${host}/products`)
+    let  {data}  = await axios.get(`${host.name}/products`)
     store.dispatch('products', data.response)
   },
     computed: {
@@ -123,34 +121,25 @@ export default {
     },
     data() {
         return {
-          ishidden : false,
+            ishidden : false,
             isfixed: false,
             isAdmin : false,
-            options: [{
-          value: 'Option1',
-          label: 'Option1'
-        }, {
-          value: 'Option2',
-          label: 'Option2'
-        }, {
-          value: 'Option3',
-          label: 'Option3'
-        }, {
-          value: 'Option4',
-          label: 'Option4'
-        }, {
-          value: 'Option5',
-          label: 'Option5'
-        }],
-        value: ''
+            value: '',
+            directions : [
+              {name : 'Giá tăng dần' , value : 'DESC'},
+              {name : 'Giá giảm dần' , value : 'ASC'},
+
+            ]
         }
     },
     methods: {
-          sortMinToMaxProducts () {
-      this.$store.dispatch('products', this.products)
-    },
-    sortMaxToMinProducts () {
-      this.$store.dispatch('products', this.products)
+    async sortProducts(event) {
+      try {
+        const data = await this.$axios.$get(`${host.name}/sortproducts/${event.target.value}`)
+        this.$store.dispatch('products', data.response)
+      } catch (error) {
+        throw Error(error.message)
+      }
     },
     toggleMenu(){
     let leftSide = document.getElementById("leftSide");
@@ -170,19 +159,17 @@ export default {
           if (st > lastScrollTop){
               // downscroll code
               this.ishidden = true;
-              console.log('this.ishidden :', this.ishidden);
           } else {
               // upscroll code
 
               this.ishidden = false;
-              console.log('this.ishidden :', this.ishidden);
           }
           lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
         });
       },
     async deleteProduct(id, index) {
             try {
-        const response = await this.$axios.$delete(`${host}/product/delete/${id}`)
+        const response = await this.$axios.$delete(`${host.name}/product/delete/${id}`)
         this.$store.dispatch('deleteProduct', index)
         this.$message({
             type: 'success',
@@ -195,7 +182,7 @@ export default {
     async addToCart(id, index){
       this.$store.dispatch('cart/addProductToCart', `${id}`)
       try {
-        const response = await this.$axios.$put(`${host}/cart/${this.user_id}`, {
+        const response = await this.$axios.$put(`${host.name}/cart/${this.user_id}`, {
           product_id : this.id_productInCart.map(i => Number(i))
         })
         if(response){
@@ -262,16 +249,16 @@ export default {
     color: #fff;
     }
     .sale-off{
-    width: 50px;
-    height: 40px;
+    width: 75px;
+    height: 57px;
     position: absolute;
-    background: url('../../static/images/background/salse-tamplate.png');
+    background: url('../../static/images/background/sale-sticker.png');
     background-size: cover;
     padding: 0;
     line-height: 31px;
     font-weight: 500;
     z-index: 1;
-    color: #fff;
+    color: #fff;  
     font-size: 13px;
     text-align: center;
     }
@@ -388,6 +375,66 @@ export default {
 }
 .icon-option-product li ion-icon {
   color: black;
+}
+.sale-off-text {
+      height: 15px;
+    position: absolute;
+    top: 26%;
+    left: 26%;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
+  background-image: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #34495e;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
 }
     @media (max-width: 992px) {
       .product-card{

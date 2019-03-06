@@ -39,14 +39,14 @@
 </template>
 
 <script>
+import host from "../host/hostserver"
 import Logo from "../components/Logo";
 import sildeHotProduct from "../components/hotSlidePproduct"
 import axios from 'axios'
 import service from '../components/service'
 import event from '../components/event'
 import footerEnd from '../components/footer'
-import hotTrendProduct from '../components/hotTrend';
-const host = require('../host/hostserver.js')
+import hotTrendProduct from '../components/hotTrend'
 export default {
   components : {
     Logo : Logo,
@@ -57,37 +57,9 @@ export default {
     footerEnd,
   },
     async fetch ({ store, params }) {
-    let { data } = await axios.get(`${host}/hotProduct`)
-    console.log('hotproduct :', data.response);
+    let { data } = await axios.get(`${host.name}/hotProduct`)
     store.dispatch('hotProducts', data.response)
   },
-// async asyncData({$axios}) {
-//         const data = await $axios.$get(`${host}/users/13`)
-//         let user = data.response
-//         return {user}
-//   },
-  
-  // async fetch ({ store, params }) {
-  //   let { data } = await axios.get(`${host}/users`)
-  //   store.commit('setStars', data)
-  // },
-    //   async user2({ $axios }){
-    //       try {
-    //     const response = await $axios.$get(`${host}/users/4`)
-    //     var user2 = response.result
-    //     return { user2 }
-    // } catch (error) {
-    // }
-    // },
-  //     async asyncData({ $axios }) {
-
-  //   try {
-  //       const response = await $axios.$get(`${host}/users`)
-  //       var tung = response.result
-  //       return { tung }
-  //   } catch (error) {
-  //   }
-  // },
 
     computed: {
 
@@ -117,10 +89,10 @@ export default {
           },
           on: {
             slideChange() {
-              console.log('onSlideChangeEnd', this);
+             
             },
             tap() {
-              console.log('onTap', this);
+           
             }
           }
         },
@@ -149,10 +121,10 @@ export default {
   methods: {
     async  deleteuser(id, index){
       try {
-        const response = await this.$axios.$delete(`${host}/users/${id}`)
+        const response = await this.$axios.$delete(`${host.name}/users/${id}`)
         this.$store.dispatch('deleteuser', index)
       } catch (error) {
-        console.log('err :');
+        
       }
     },
   }
