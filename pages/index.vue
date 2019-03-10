@@ -20,12 +20,15 @@
 
         <!-- slide sản phẩm -->
        <sildeHotProduct/>
+
+        <!-- parallax -->
+    <div class="parallax1"></div>
     <!-- Hot trend product -->
-    <div class="text-title">HOT NHẤT TRONG TUẦN</div>
+    <h3 class="text-title-hot-week">HOT NHẤT TRONG TUẦN</h3>
     <hotTrendProduct/>
 
         <!-- parallax -->
-    <div class="parallax"></div>
+    <div class="parallax2"></div>
 
      <!-- Event in month -->
      <event/>
@@ -133,7 +136,20 @@ export default {
 
 <style>
 
-.parallax {
+.parallax1 {
+  /* The image used */
+  background-image: url("../static/images/bestSeller/3.4_HP_NSW_AM_Dia_DT.jpg");
+
+  /* Set a specific height */
+  min-height: 200px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax2 {
   /* The image used */
   background-image: url("../static/images/background/paralax.jpg");
 
@@ -191,9 +207,11 @@ export default {
     margin: 0;
   }
   .banner .el-carousel__container{
-    height: 650px!important;
+    height: 100%!important;
   }
-
+  .el-carousel__container{
+    height: 400px!important;
+  }
   .el-carousel__item:nth-child(2n) {
     background-color: #99a9bf;
   }
@@ -268,6 +286,12 @@ export default {
    #myVideo {
   width: 100%    !important;
   height: auto   !important;
+}
+.text-title-hot-week{
+    margin-left: 20px;
+    padding-left: 10px;
+        border-left: 5px solid;
+      
 }
 
 .el-carousel__indicator{

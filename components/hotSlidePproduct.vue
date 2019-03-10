@@ -1,18 +1,18 @@
 <template>
   <div class="block fitheight space-section-top ">
-    <h3>HOT TREND</h3>
-    <el-carousel indicator-position="outside" class="wrap-hot-product fitheight">
+    <h3 class="hotTrend-title">HOT TREND</h3>
+    <el-carousel interval="3000000" indicator-position="outside" class="wrap-hot-product fitheight">
       <el-carousel-item  class="fitheight" v-for="item in 4" :key="item">
         <div class="product-in-face clearfix fitheight" >
           <div class="item fitheight" v-for="(i , index) in hotProducts" :key="index">
 
             <el-card shadow="hover" :body-style="{ padding: '0px' }" class="fitheight">
                                         <!-- Phần sale % -->
-                <div v-if="i.sale_off" class="sale-off">{{i.sale_off}}</div>
+                <div v-if="i.sale_off" class="sale-off"><p class="sale-off-text">{{i.sale_off}}</p></div>
                             <!-- phần ảnh -->
               <div class="image-product child-center">
                 <nuxt-link :to="'./detailProduct/' + i.id">
-                  <img style="width:80%;" class="fitheight" :src="`/images/detailProduct/${i.image}/${i.image}`" alt="">
+                  <img class="fitheight" :src="`/images/detailProduct/${i.image}/${i.image}`" alt="">
                 </nuxt-link>
                 <p>
                   <ul class="icon-option-product">
@@ -29,7 +29,7 @@
               </div>
 
                             <!-- Phần text, price -->
-                  <div style="padding: 14px;">
+                  <div class="text-price" style="padding: 14px;">
                     <div>{{i.name}}</div>
                     <!-- <div>{{i.description.slice(0,50)}}...</div> -->
                       <div class="price">{{i.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}VNĐ 
@@ -107,6 +107,12 @@ export default {
 </script>
 
 <style scoped>
+.hotTrend-title{
+  margin-left: 5px;
+  margin-bottom: 25px;
+    padding-left: 10px;
+        border-left: 5px solid;
+}
 .block {
   height: 100%;
   padding: 0px 15px;
@@ -115,36 +121,47 @@ export default {
   height: 100%;
 }
   .product-in-face{
+
+
   }
   .item {
     float: left;
     width: 20%;
     padding: 5px;
+    height: 400px;
   }
+
   .product-in-face .item img {
     height: 150px;
   }
   .wrap-hot-product .el-carousel__container{
     height: 100%;
+        margin-top: 20px!important;
   }
   .wrap-hot-product .el-carousel__item {
     background-color: white!important;
   }
 
-      .sale-off{
-    width: 50px;
-    height: 40px;
+    .sale-off{
+    width: 75px;
+    height: 57px;
     position: absolute;
-    background: url('/images/background/salse-tamplate.png');
+    background: url('../static/images/background/sale-sticker.png');
     background-size: cover;
     padding: 0;
     line-height: 31px;
     font-weight: 500;
     z-index: 1;
-    color: #fff;
+    color: #fff;  
     font-size: 13px;
     text-align: center;
     }
+.sale-off-text {
+    height: 15px;
+    position: absolute;
+    top: 26%;
+    left: 26%;
+}
 
         .image-product:hover .sale-off {
       opacity: 0.85;
@@ -156,6 +173,16 @@ export default {
     .image-product{
       position: relative;
       overflow: hidden;
+      height: 83%;
+    }
+    .el-carousel__item{
+      height: 400px!important;
+    }
+    .image-product a {
+      height: 100%;
+    }
+    .image-product a img {
+      height: 100%!important;
     }
     .image-product p {
     text-align: right;
@@ -164,6 +191,10 @@ export default {
     bottom: 0;
     padding: 0 1.5em 7% 0;
     }
+    .text-price {
+    position: absolute;
+    top: 80%;
+}
     
     .image-product p ul li {
       	opacity: 0;
@@ -233,4 +264,10 @@ export default {
     text-align: left;
     font-weight: 300;
 }
+    @media (max-width: 768px) {
+      .item {
+        height: 100%!important;
+        width: 50%;
+      }
+    }
 </style>

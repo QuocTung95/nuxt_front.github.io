@@ -8,8 +8,12 @@
                 <li>
                     <nuxt-link to="./storeShose">SHOP</nuxt-link>
                 </li>
-                <li v-if="user_id" class="getcart" @click="getCart()"><nuxt-link to="/cart"><ion-icon name="cart"></ion-icon> </nuxt-link></li>
-                <li v-if="user_id" class="info" ><a style="float:right;" href='javascript:void(0)' @click="logout()">ĐĂNG XUẤT</a></li>
+                <!-- <li v-if="user_id" class="getcart" @click="getCart()"><nuxt-link to="/cart"><ion-icon name="cart"></ion-icon> </nuxt-link></li> -->
+                <li v-if="user_id" class="info" >
+                  
+                  <spam  v-if="user_id" class="getcart" href='javascript:void(0)' @click="getCart()"><nuxt-link to="/cart"><ion-icon name="cart"></ion-icon> </nuxt-link></spam>
+                  <a style="float:right;" href='javascript:void(0)' @click="logout()">ĐĂNG XUẤT</a>
+                </li>
                 <li v-else class="info" ><a style="float:right; " href='javascript:void(0)' @click="showLogin()">ĐĂNG NHẬP</a></li>
             </ul>
         </div>
@@ -185,7 +189,7 @@ html {
 }
 
 #nav_horizontal > ul {
-  background-color: #333333a8;
+  background-color: rgb(156, 148, 143);
 }
 #nav_horizontal > ul::after {
   content: "";
@@ -264,7 +268,9 @@ html {
   color: #333333;
 }
 #nav_horizontal > ul > .info{
-  width: 25%!important;
+  width: 63%!important;
+    display: flex;
+    justify-content: flex-end;
 }
 
 
@@ -273,6 +279,7 @@ html {
     width: 50%;
     display: flex;
     justify-content: flex-end;
-    width: 37%!important;
+    width: 11%!important;
+    padding: 0;
 }
 </style>

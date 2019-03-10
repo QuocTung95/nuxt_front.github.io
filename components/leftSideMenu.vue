@@ -10,6 +10,9 @@
 
 
             <li> <h3>Thương hiệu</h3>
+            <ul>
+              <li  @click="allProducts()">Tất cả</li>
+            </ul>
               <ul v-for="(brand , index) in brands" :key="index">
                   <li @click="getProuctByBrand(brand.id)">{{brand.name}}</li>
               </ul>
@@ -49,6 +52,14 @@ export default {
             this.isfixed = false
           }
         })
+    },
+    async allProducts() {
+      try {
+        const data = await this.$axios.$get(`${host.name}/products`)
+        this.$store.dispatch('products', data.response)
+      } catch (error) {
+         throw Error(error.message)
+      }
     },
 
     async sortMen() {
@@ -119,9 +130,24 @@ export default {
     list-style: none;
     padding-bottom: 5px;
     padding-top: 9px;
+    color: #111;
 }
+/* effect-shine */
 #leftSide ul li > ul>li:hover {
   cursor: pointer;
-  color: blue;
+  /* color: #8d8d8d; */
+    -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+  
+  to {
+    -webkit-mask-position: -50%;
+  }
 }
 </style>

@@ -45,6 +45,10 @@
     <el-form-item>
       Hình chi tiết  <input id="arrImage" type="file" name="images" multiple>
     </el-form-item>
+        <el-form-item label="video" >
+        <el-input id="video" type="text"  autocomplete="off"></el-input>
+    </el-form-item>
+
 
     <el-form-item>
         <el-button @click="uploadProduct()" type="primary" >Submit</el-button>
@@ -92,7 +96,7 @@ export default {
                 image : document.getElementById('imgUpload').files[0].name,
                 hot_product : this.hot_product,
                 sale_off : document.getElementById('sale_off').value,
-                video : document.getElementById('video').value,
+                video : document.getElementById('video').value || '',
                 sub_image: '{' + kq.slice(0, -16) + '}' //// Vì upload image sẽ có thêm 2 trường phụ
                 // sub_image : Object.assign({}, sub_imageName.slice(0, -2)) // Vì upload image sẽ có thêm 2 obj phụ
                 })

@@ -4,7 +4,7 @@
             <!-- <h3 class="space-left">VALENTINE VÀ NHỮNG CHUYẾN ĐI CÙNG NHAU</h3> -->
             </div>
             <div class="valentine">
-                <div class="text-title">NĂNG ĐỘNG CÙNG NHỮNG CHIẾC GIÀY THỂ THAO</div>
+                <h3 class="text-sport">NĂNG ĐỘNG CÙNG NHỮNG CHIẾC GIÀY THỂ THAO</h3>
             <img src="../static/images/background/sport_activiti.jpg" alt="">
             <div class="text">
                 <h3 class="space-text">MỘT CHIẾC GIÀY TỐT SẼ HỖ TRỢ BẠN LÀM MỌI VIỆC</h3>
@@ -27,8 +27,15 @@ export default {
     .valentine img{
     width: 100%;
     }
-
     .valentine {
         text-align: center;
     }
+    .text-sport{
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 5px solid;
+    margin-bottom: 25px;
+    text-align: left;
+      
+}
 </style>

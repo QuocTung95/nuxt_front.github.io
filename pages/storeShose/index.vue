@@ -59,7 +59,7 @@
               </div>
 
               <!-- Phần text, price -->
-                  <div style="padding: 14px;">
+                  <div class="text-price" style="padding: 14px;">
                     <div>{{i.name}}</div>
                     <!-- <div>{{i.description.slice(0,50)}}...</div> -->
                       <div class="price">{{i.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}VNĐ 
@@ -371,10 +371,24 @@ export default {
     margin-top: 10px;
 }
 .icon-option-product li ion-icon:hover {
-  color: #a07171
+    cursor: pointer;
+  /* color: #8d8d8d; */
+    -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+
+}
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+  
+  to {
+    -webkit-mask-position: -50%;
+  }
 }
 .icon-option-product li ion-icon {
-  color: black;
+  color: #3c3535e6;
 }
 .sale-off-text {
       height: 15px;
@@ -391,7 +405,7 @@ select {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  background: #2c3e50;
+  background: #e5ddd8;
   background-image: none;
 }
 /* Custom Select */
@@ -401,7 +415,7 @@ select {
   width: 20em;
   height: 3em;
   line-height: 3;
-  background: #2c3e50;
+  background: #e5ddd8;
   overflow: hidden;
   border-radius: .25em;
 }
@@ -410,7 +424,7 @@ select {
   height: 100%;
   margin: 0;
   padding: 0 0 0 .5em;
-  color: #fff;
+  color: #34495e;
   cursor: pointer;
 }
 select::-ms-expand {
@@ -435,6 +449,10 @@ select::-ms-expand {
   -webkit-transition: .25s all ease;
   -o-transition: .25s all ease;
   transition: .25s all ease;
+}
+.text-price {
+    position: absolute;
+    top: 69%;
 }
     @media (max-width: 992px) {
       .product-card{

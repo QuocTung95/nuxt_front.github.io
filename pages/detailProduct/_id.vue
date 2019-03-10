@@ -14,10 +14,10 @@
             <!-- Row -->
     <el-row class="wrap-detail-product">
         <!-- Cột 1 -->
-            <el-col :span="16" class="wrap-product">
-                <div class="card-product">
-                    <el-card v-if="product.video" shadow="hover" :body-style="{ padding: '5px' }">
-                        <video autoplay loop height= "300px">
+            <el-col  :span="16" class="wrap-product">
+                <div v-if="product.video"  class="card-product">
+                    <el-card  shadow="hover" :body-style="{ padding: '5px' }">
+                        <video autoplay loop >
                         <source :src="`${product.video}`" type="video/mp4">
                         </video>
                     </el-card>
@@ -127,7 +127,7 @@ export default {
       }
   },
   mounted() {
-    
+    console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',this.product.video == false)
   },
   data() {
       return {
