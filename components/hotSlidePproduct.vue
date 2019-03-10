@@ -1,7 +1,7 @@
 <template>
   <div class="block fitheight space-section-top ">
     <h3 class="hotTrend-title">HOT TREND</h3>
-    <el-carousel interval="3000000" indicator-position="outside" class="wrap-hot-product fitheight">
+    <el-carousel interval="3000" indicator-position="outside" class="wrap-hot-product fitheight">
       <el-carousel-item  class="fitheight" v-for="item in 4" :key="item">
         <div class="product-in-face clearfix fitheight" >
           <div class="item fitheight" v-for="(i , index) in hotProducts" :key="index">
